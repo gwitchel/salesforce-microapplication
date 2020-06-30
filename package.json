@@ -1,20 +1,20 @@
 {
-  "name": "nodetest",
+  "name": "microforce",
   "version": "1.0.0",
-  "description": "test",
+  "description": "salesforce test of the API",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
-  "author": "me",
+  "author": "georgia witchel",
   "license": "ISC",
   "dependencies": {
+    "env-variable": "0.0.6",
     "express": "^4.17.1",
-    "mongodb": "^3.2.7",
-    "mongoose": "^5.6.1",
-    "request": "^2.88.0",
-    "restify": "^8.3.3",
+    "jsforce": "^1.9.3",
+    "node-salesforce": "^0.8.0",
+    "request": "^2.88.2",
     "restify-plugins": "^1.6.0"
   },
   "devDependencies": {}
