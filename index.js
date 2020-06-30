@@ -4,9 +4,36 @@ const app = express()
 var request = require('request');
 var sf = require('node-salesforce');
 
+var conn = new sf.Connection({
+  oauth2 : {
+    // you can change loginUrl to connect to sandbox or prerelease env.
+    // loginUrl : 'https://test.salesforce.com',
+    clientId : '3MVG9Kip4IKAZQEVpPmAointpLLPvhuSwUeLk0nOgkGsGTLTuYiaJ45rN6vEEMJuOHiTMANkJKFjXV1Fwbh3U',
+    clientSecret : 'A9603C85AB68302A8B3BCDF6AC610D8F8AFD3B70876CE6C0D3E319954A7991CF',
+    redirectUri : 'http://localhost:8080/oauth2/callback'
+  }
+});
+app.get('/oauth2/auth', function(req, res) {
+  conn.login("georgia@nuffsaid.com", "n!xHMcFsK#Uh5KZTURBX96FdanS8KnLbSK5Eh59P", function(err, userInfo) {
+    if (err) { return console.error(err); }
+    // Now you can get the access token and instance URL information.
+    // Save them to establish connection next time.
+    console.log(conn.accessToken);
+    console.log(conn.instanceUrl);
+    // logged in user property
+    console.log("User ID: " + userInfo.id);
+    console.log("Org ID: " + userInfo.organizationId);
+    res.send({"accessToken" : conn.accessToken,
+    "instanceUrl" : conn.instanceUrl, 
+    "User ID: " : userInfo.id ,
+    "Org ID: " : userInfo.organizationId
+})
+  });
+
+});
 
 
-
+/* oauth example 
 var oauth2 = new sf.OAuth2({
     // you can change loginUrl to connect to sandbox or prerelease env.
     clientId : '3MVG9Kip4IKAZQEVpPmAointpLLPvhuSwUeLk0nOgkGsGTLTuYiaJ45rN6vEEMJuOHiTMANkJKFjXV1Fwbh3U',
@@ -51,7 +78,7 @@ var oauth2 = new sf.OAuth2({
     });
   });
 
-
+*/ 
 app.listen(8080, function () {
   console.log('Example app listening on port 8080.');
 });
